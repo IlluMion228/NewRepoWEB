@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Get Help Form";
+}
+<div class="card-header bg-primary text-white">
+    <h1>Get Help Form</h1>
+    <p style="margin: 0">Please enter correct information in the appropriate fields</p>
+</div>
+
+
+<form method="post" asp-action="SubmitHelpRequest">
+    <div class="card-body shadow-sm;" style="background-color: rgba(255, 255, 255, 0.3); border-radius: 10px;">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="FirstName" class="label-form">First Name</label>
+                <input type="text" id="FirstName" name="FirstName" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label for="LastName" class="label-form">Last Name</label>
+                <input type="text" id="LastName" name="LastName" class="form-control" required />
+            </div>
+            </div>
+
+        <div class="mb-3">
+            <label for="FirstName" class="label-form">Email</label>
+            <input type="text" id="Email" name="Email" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="PhoneNumber" class="label-form">Phone Number</label>
+            <input type="tel" id="PhoneNumber" name="PhoneNumber" class="form-control" required placeholder="(000) 000-0000" />
+        </div>
+
+        <div class="mb-3">
+            <label for="UserMessage" class="label-form">Please give detail about your issue</label>
+            <textarea id="UserMessage" name="UserMessage" class="form-control auto-expand" rows="1" placeholder="Type here..." required style="resize: none; overflow: hidden;"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="label-form">Were you a passenger in the taxi?</label>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Option" id="Option1" value="Option1" required>
+                    <label class="form-check-label" for="Option1">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Option" id="Option2" value="Option2" required>
+                    <label class="form-check-label" for="Option2">
+                        No
+                    </label>
+                </div>
+            </div>
+         </div>
+
+            <div class="mb-3">
+            <label for="DateTime" class="label-form">Date</label>
+                <input type="datetime-local" id="DateTime" name="DateTime" class="form-control" required />
+            </div>
+
+    <button type="submit" class="btn btn-primary">Send</button>
+
+     </div>
+</form>

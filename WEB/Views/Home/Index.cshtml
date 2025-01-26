@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Main Menu";
+}
+
+<div class="main-menu">
+    <header class="header">
+        <h1>Taxi Agency</h1>
+        <p class="subtitle">- 24/7 AVAILABLE -</p>
+    </header>
+
+    <div class="menu-buttons">
+        <a asp-controller="Booking" asp-action="Index" class="btn menu-btn">
+            <i class="fa fa-calendar-alt"></i> Book a Taxi
+        </a>
+        <a asp-controller="Feedback" asp-action="Index" class="btn menu-btn">
+            <i class="fa fa-pencil-alt"></i> Give a Feedback
+        </a>
+        <a asp-controller="Home" asp-action="GetHelpForm" class="btn menu-btn">
+            <i class="fa fa-question-circle"></i> Request for a Help
+        </a>
+    </div>
+
+    <footer class="services">
+        <h2>Taxi Services</h2>
+        <p>Golf Transfers - Airport Transfers</p>
+        <p>Cruise Port Transportation - City Transfers</p>
+        <p>Hourly Hire - Events</p>
+
+        <div class="social-icons">
+            <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-" class="icon"><i class="fab fa-youtube"></i></a>
+            <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-" class="icon"><i class="fab fa-twitter"></i></a>
+            <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-" class="icon"><i class="fab fa-linkedin"></i></a>
+            <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-" class="icon"><i class="fab fa-facebook"></i></a>
+        </div>
+
+        <p class="footer-text">
+            Plovdiv | Sofia | Pazardshik | Varna | Sun Beach | Pleven
+        </p>
+        <p class="footer-text">
+            <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a>
+        </p>
+    </footer>
+</div>

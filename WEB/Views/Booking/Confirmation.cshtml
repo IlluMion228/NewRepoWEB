@@ -1,0 +1,19 @@
+﻿@model WEB.Models.Booking
+
+<div class="card shadow-sm" style="background-color: rgba(255, 255, 255, 0.3); border-radius: 10px;">
+    <div class="card-header bg-success text-white">
+        <h1 class="card-title">Booking Confirmation</h1>
+    </div>
+    <div class="card-body">
+        <p class="fs-5">Thank you, <strong>@Model.FirstName @Model.LastName</strong>! Your booking details are as follows:</p>
+        <ul class="list-group">
+            <li class="list-group-item">Phone Number: @Model.PhoneNumber</li>
+            <li class="list-group-item">Email: @Model.Email</li>
+            <li class="list-group-item">Address: @Model.Address, @Model.City, @Model.State, @Model.PostalCode</li>
+            <li class="list-group-item">Return with us: <strong>@(Model.ReturnWithUs ? "Yes" : "No")</strong></li>
+            <li class="list-group-item">Fare Price: @Model.FarePrice</li>
+            <li class="list-group-item">Total: <strong>$@Model.Total</strong></li>
+        </ul>
+        <a href="/" class="btn btn-primary mt-3">Back to Main Page</a>
+    </div>
+</div>
