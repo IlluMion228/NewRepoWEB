@@ -12,6 +12,14 @@
             <li class="list-group-item">Address: @Model.Address, @Model.City, @Model.State, @Model.PostalCode</li>
             <li class="list-group-item">Return with us: <strong>@(Model.ReturnWithUs ? "Yes" : "No")</strong></li>
             <li class="list-group-item">Fare Price: @Model.FarePrice</li>
+
+            @if (!string.IsNullOrEmpty(Model.PromoCode))
+            {
+                <li class="list-group-item">
+                    Promo Code: <strong>@Model.PromoCode</strong> (Applied Successfully)
+                </li>
+            }
+
             <li class="list-group-item">Total: <strong>$@Model.Total</strong></li>
         </ul>
         <a href="/" class="btn btn-primary mt-3">Back to Main Page</a>

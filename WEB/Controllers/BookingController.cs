@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WEB.Models;
 
 namespace WEB.Controllers
@@ -11,18 +10,27 @@ namespace WEB.Controllers
         {
             return View(new Booking());
         }
+
         [HttpPost]
-        public IActionResult Index(Booking booking) 
+        public IActionResult Index(Booking booking)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
+                // Расчет стоимости поездки
                 booking.Total = CalculateFare(booking.FarePrice);
-                return View("Confirmation",booking);
+
+                // Применение скидки, если промокод корректен
+                if (!string.IsNullOrEmpty(booking.PromoCode) && IsValidPromoCode(booking.PromoCode))
+                {
+                    booking.Total *= 0.9m; // Скидка 10%
+                }
+
+                return View("Confirmation", booking);
             }
             return View(booking);
         }
 
-        private decimal CalculateFare(string fareOption) 
+        private decimal CalculateFare(string fareOption)
         {
             return fareOption switch
             {
@@ -34,6 +42,11 @@ namespace WEB.Controllers
                 "21-40-return" => 50.00m,
                 _ => 0.00m
             };
+        }
+
+        private bool IsValidPromoCode(string promoCode)
+        {
+            return promoCode == "DISCOUNT10"; 
         }
     }
 }
