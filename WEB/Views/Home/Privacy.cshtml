@@ -1,36 +1,42 @@
-﻿<!DOCTYPE html>
+﻿@model WEB.Models.UserModel
+@{
+    ViewData["Title"] = "Register/Login";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration/Login</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
         <div class="row">
+            <!-- Register Form -->
             <div class="col-md-6">
                 <div class="card shadow-sm" style="background-color: rgba(255, 255, 255, 0.3);">
                     <div class="card-header bg-primary text-white">
                         <h2 class="card-title">Register</h2>
                     </div>
                     <div class="card-body">
-                        <form action="/register" method="post">
+                        <form asp-controller="RegisterLogin" asp-action="Index" method="post">
                             <div class="mb-3">
                                 <label for="registerFirstName" class="form-label">First Name</label>
-                                <input type="text" id="registerFirstName" name="firstName" class="form-control" required>
+                                <input type="text" id="registerFirstName" name="FirstName" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label for="registerLastName" class="form-label">Last Name</label>
-                                <input type="text" id="registerLastName" name="lastName" class="form-control" required>
+                                <input type="text" id="registerLastName" name="LastName" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label for="registerEmail" class="form-label">Email</label>
-                                <input type="email" id="registerEmail" name="email" class="form-control" required>
+                                <input type="email" id="registerEmail" name="Email" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label for="registerPassword" class="form-label">Password</label>
-                                <input type="password" id="registerPassword" name="password" class="form-control" required>
+                                <input type="password" id="registerPassword" name="Password" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-success w-100">Register</button>
                         </form>
@@ -38,20 +44,21 @@
                 </div>
             </div>
 
+            <!-- Login Form -->
             <div class="col-md-6">
                 <div class="card shadow-sm" style="background-color: rgba(255, 255, 255, 0.3);">
                     <div class="card-header bg-primary text-white">
                         <h2 class="card-title">Login</h2>
                     </div>
                     <div class="card-body">
-                        <form action="/login" method="post">
+                        <form asp-controller="RegisterLogin" asp-action="Index" method="post">
                             <div class="mb-3">
                                 <label for="loginEmail" class="form-label">Email</label>
-                                <input type="email" id="loginEmail" name="email" class="form-control" required>
+                                <input type="email" id="loginEmail" name="Email" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label for="loginPassword" class="form-label">Password</label>
-                                <input type="password" id="loginPassword" name="password" class="form-control" required>
+                                <input type="password" id="loginPassword" name="Password" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
@@ -59,6 +66,13 @@
                 </div>
             </div>
         </div>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-info mt-3">
+                @TempData["Message"]
+            </div>
+        }
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
