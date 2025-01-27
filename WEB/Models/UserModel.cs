@@ -5,23 +5,23 @@ namespace WEB.Models
     public class UserModel
     {
         [Key]
-        public int UserId { get; set; } // Это поле связано с первичным ключом USER_ID
+        public int UserId { get; set; }
 
-        [Required]
-        [StringLength(20, ErrorMessage = "Имя не может быть длиннее 20 символов.")]
-        public string FName { get; set; } // Поле FNAME
+        [Required(ErrorMessage = "First name is required.")]
+        [StringLength(20, ErrorMessage = "First name cannot be longer than 20 characters.")]
+        public string FName { get; set; }
 
-        [Required]
-        [StringLength(20, ErrorMessage = "Фамилия не может быть длиннее 20 символов.")]
-        public string LName { get; set; } // Поле LNAME
+        [Required(ErrorMessage = "Last name is required.")]
+        [StringLength(20, ErrorMessage = "Last name cannot be longer than 20 characters.")]
+        public string LName { get; set; }
 
-        [Required]
-        [EmailAddress(ErrorMessage = "Введите корректный адрес электронной почты.")]
-        [StringLength(80, ErrorMessage = "Email не может быть длиннее 80 символов.")]
-        public string Email { get; set; } // Поле EMAIL
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        [StringLength(80, ErrorMessage = "Email cannot be longer than 80 characters.")]
+        public string Email { get; set; }
 
-        [Required]
-        [StringLength(16, ErrorMessage = "Пароль не может быть длиннее 16 символов.")]
-        public string Password { get; set; } // Поле PASSWORD
+        [Required(ErrorMessage = "Password is required.")]
+        [StringLength(16, ErrorMessage = "Password cannot be longer than 16 characters.")]
+        public string Password { get; set; }
     }
 }

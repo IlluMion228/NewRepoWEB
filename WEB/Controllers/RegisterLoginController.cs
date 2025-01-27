@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WEB.Models;
 
 
@@ -13,44 +14,53 @@ namespace WEB.Controllers
             _context = context;
         }
 
-
-        // Display Register/Login page
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        // Handle Registration and Login form submissions
         [HttpPost]
-        public IActionResult Index(UserModel user)
+        public async Task<IActionResult> Register(UserModel model)
         {
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(user.FName) && !string.IsNullOrEmpty(user.LName))
+                // Проверка, существует ли пользователь с таким Email
+                var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                if (existingUser != null)
                 {
-                    // Handle the registration process (saving to a database, etc.)
-                    // For example, save user to database (pseudo code):
-                    // _context.Users.Add(user);
-                    // _context.SaveChanges();
-
-                    TempData["Message"] = "Registration successful!";
-                    return RedirectToAction("Index"); // Redirect back to the same page
+                    TempData["Message"] = "A user with this email already exists.";
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    // Handle login logic here
-                    // For example, verify the user credentials from the database
-                    // if (user.Email == "existing@example.com" && user.Password == "correctpassword")
-                    //{
-                    //   TempData["Message"] = "Login successful!";
-                    //   return RedirectToAction("Home");
-                    //}
 
-                    TempData["Message"] = "Login failed. Please check your credentials.";
-                }
+                // Добавление пользователя в базу данных
+                _context.Users.Add(model);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = "Registration successful!";
+                return RedirectToAction("Index", "Home"); // Переход на страницу Index.cshtml
             }
-            return View(user);
+
+            TempData["Message"] = "Registration failed. Please check the input data.";
+            return RedirectToAction("Privacy", "Home");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            if (user != null)
+            {
+                TempData["Message"] = $"Welcome back, {user.FName}!";
+                return RedirectToAction("Index"); // Переход на страницу Index.cshtml
+            }
+
+            TempData["Message"] = "Invalid email or password.";
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Index()
+        {
+            return View("~/Views/Home/Index.cshtml");
+        }
+        public IActionResult Privacy()
+        {
+            return View("~/Views/Home/Privacy.cshtml");
+        }
+
     }
 }
