@@ -3,12 +3,13 @@ using WEB.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer("Server=DESKTOP-4P5CV14\\SQLEXPRESS;Database=TaxiDb;Trusted_Connection=True;TrustServerCertificate=True;");
+});
 
 var app = builder.Build();
 
@@ -30,7 +31,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-// add comment for testing
 
 app.MapControllerRoute(
     name: "help",

@@ -1,10 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WEB.Models;
 
+
 namespace WEB.Controllers
 {
     public class RegisterLoginController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public RegisterLoginController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+
         // Display Register/Login page
         [HttpGet]
         public IActionResult Index()
@@ -18,7 +27,7 @@ namespace WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(user.FirstName) && !string.IsNullOrEmpty(user.LastName))
+                if (!string.IsNullOrEmpty(user.FName) && !string.IsNullOrEmpty(user.LName))
                 {
                     // Handle the registration process (saving to a database, etc.)
                     // For example, save user to database (pseudo code):

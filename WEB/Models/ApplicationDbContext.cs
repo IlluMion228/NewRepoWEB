@@ -4,12 +4,12 @@ namespace WEB.Models
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+        public DbSet<UserModel> Users { get; set; }
 
-        // Здесь добавляются DbSet для ваших моделей данных
-        public DbSet<Booking> Booking { get; set; }
+
+        public ApplicationDbContext(DbContextOptions options) : base(options)
+        {
+            
+        }
     }
 }
