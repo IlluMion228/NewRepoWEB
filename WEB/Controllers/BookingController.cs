@@ -12,8 +12,13 @@ namespace WEB.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(Booking booking)
+        public IActionResult Index(Booking booking, string extraFeatures)
         {
+            if (!string.IsNullOrEmpty(extraFeatures))
+            {
+                booking.ExtraFeatures = extraFeatures.Split(", ").ToList();
+            }
+
             if (ModelState.IsValid)
             {
                 // Расчет стоимости поездки

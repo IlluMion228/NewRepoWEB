@@ -19,7 +19,18 @@
                     Promo Code: <strong>@Model.PromoCode</strong> (Applied Successfully)
                 </li>
             }
-
+            @if (Model.ExtraFeatures?.Count > 0)
+            {
+                <li class="list-group-item">
+                    Extra Features:
+                    <ul>
+                        @foreach (var feature in Model.ExtraFeatures)
+                        {
+                            <li>@feature</li>
+                        }
+                    </ul>
+                </li>
+            }
             <li class="list-group-item">Total: <strong>$@Model.Total</strong></li>
         </ul>
         <a href="/" class="btn btn-primary mt-3">Back to Main Page</a>

@@ -97,12 +97,82 @@
 
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-success">Book a Taxi</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#extraFeaturesModal">
+                    Choose Extra Features
+                </button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
         </form>
     </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="extraFeaturesModal" tabindex="-1" aria-labelledby="extraFeaturesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="extraFeaturesModalLabel">Choose Extra Features</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="extraFeaturesForm">
+                    <div class="form-check">
+                        <input type="checkbox" name="selectedExtras" value="Extra Luggage" class="form-check-input" id="extraLuggage">
+                        <label for="extraLuggage" class="form-check-label">Extra Luggage</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="selectedExtras" value="Child Seat" class="form-check-input" id="childSeat">
+                        <label for="childSeat" class="form-check-label">Child Seat</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="selectedExtras" value="Priority Pickup" class="form-check-input" id="priorityPickup">
+                        <label for="priorityPickup" class="form-check-label">Priority Pickup</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="selectedExtras" value="Wheelchair Accessible Vehicle" class="form-check-input" id="wheelchair">
+                        <label for="wheelchair" class="form-check-label">Wheelchair Accessible Vehicle</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="selectedExtras" value="Skip Extras" class="form-check-input" id="skip">
+                        <label for="skip" class="form-check-label">Skip extras</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveExtrasBtn">Save Extras</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #extraFeaturesModal .modal-body label {
+        color: black;
+    }
+</style>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById("saveExtrasBtn").addEventListener("click", function () {
+            const selectedExtras = Array.from(document.querySelectorAll("#extraFeaturesForm input[name='selectedExtras']:checked"))
+                .map(input => input.value);
+
+            // Создаем скрытое поле в основной форме для передачи данных
+            let extrasField = document.getElementById("extrasField");
+            if (!extrasField) {
+                extrasField = document.createElement("input");
+                extrasField.type = "hidden";
+                extrasField.name = "ExtraFeatures";
+                extrasField.id = "extrasField";
+                document.querySelector("form").appendChild(extrasField);
+            }
+
+            extrasField.value = selectedExtras.join(", ");
+            alert("Extras saved: " + selectedExtras.join(", "));
+
+            // Закрываем модальное окно
+            const modal = bootstrap.Modal.getInstance(document.getElementById("extraFeaturesModal"));
+            modal.hide();
+        });
+    </script>
 }
+

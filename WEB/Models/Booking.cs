@@ -45,9 +45,9 @@ namespace WEB.Models
         [Required]
         [Display(Name = "Taxi Fare Prices")]
         public string FarePrice { get; set; }
-
         public string? PromoCode { get; set; }
         public decimal Total { get; set; }
-        
+
+        public List<string> ExtraFeatures { get; set; } = new List<string>();
     }
 }
