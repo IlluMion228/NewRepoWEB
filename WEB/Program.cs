@@ -35,6 +35,6 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "help",
     pattern: "Help/GetHelpForm",
-    defaults: new { controller = "Home", action = "GetHelpForm" }); 
+    defaults: new { controller = "Help", action = "GetHelpForm" }); 
 
 app.Run();

@@ -30,10 +30,6 @@ namespace WEB.Controllers
             return View();
         }
 
-        public IActionResult GetHelpForm()
-        {
-            return View("~/Views/Help/GetHelpForm.cshtml");
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

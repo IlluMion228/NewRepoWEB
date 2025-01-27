@@ -1,61 +1,110 @@
-﻿<div class="card shadow-sm;" style="background-color: rgba(255, 255, 255, 0.3); border-radius: 10px;">
+﻿@model WEB.Models.Help
+
+<div class="card shadow-sm;" style="background-color: rgba(255, 255, 255, 0.3); border-radius: 10px;">
     <div class="card-header bg-primary text-white" style="border-top-left-radius: 10px; border-top-right-radius: 10px">
         <h1>Get Help Form</h1>
         <p style="margin: 0">Please enter correct information in the appropriate fields</p>
     </div>
 
     <div class="card-body">
-        <form method="post" style="" asp-action="SubmitHelpForm" asp-controller="Help">
-    
+        <form method="post" asp-action="SubmitHelpForm" asp-controller="Help">
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="FirstName" class="label-form">First Name</label>
-                        <input type="text" id="FirstName" name="FirstName" class="form-control" required />
-                    </div>
-                    <div class="col-md-6">
-                        <label for="LastName" class="label-form">Last Name</label>
-                        <input type="text" id="LastName" name="LastName" class="form-control" required />
-                    </div>
-                    </div>
-
-                <div class="mb-3">
-                    <label for="FirstName" class="label-form">Email</label>
-                    <input type="text" id="Email" name="Email" class="form-control" required />
-                </div>
-
-                <div class="mb-3">
-                    <label for="PhoneNumber" class="label-form">Phone Number</label>
-                    <input type="tel" id="PhoneNumber" name="PhoneNumber" class="form-control" required placeholder="(000) 000-0000" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="UserMessage" class="label-form">Please give detail about your issue</label>
-                    <textarea id="UserMessage" name="UserMessage" class="form-control auto-expand" rows="1" placeholder="Type here..." required style="resize: none; overflow: hidden;"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label class="label-form">Were you a passenger in the taxi?</label>
-                    <div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Option" id="Option1" value="Option1" required>
-                            <label class="form-check-label" for="Option1">
-                                Yes
-                            </label>
+            <!-- First and Last Name -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="FName" class="label-form">First Name</label>
+                    <input type="text" id="FName" name="FName" class="form-control" value="@Model.FName" required />
+                    @if (ViewData.ModelState["FName"]?.Errors.Any() == true)
+                    {
+                        <div class="text-danger">
+                            @ViewData.ModelState["FName"]?.Errors[0]?.ErrorMessage
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Option" id="Option2" value="Option2" required>
-                            <label class="form-check-label" for="Option2">
-                                No
-                            </label>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <label for="LName" class="label-form">Last Name</label>
+                    <input type="text" id="LName" name="LName" class="form-control" value="@Model.LName" required />
+                    @if (ViewData.ModelState["LName"]?.Errors.Any() == true)
+                    {
+                        <div class="text-danger">
+                            @ViewData.ModelState["LName"]?.Errors[0]?.ErrorMessage
                         </div>
-                    </div>
-                 </div>
+                    }
+                </div>
+            </div>
 
-                    <div class="mb-3">
-                    <label for="DateTime" class="label-form">Date</label>
-                        <input type="datetime-local" id="DateTime" name="DateTime" class="form-control" required />
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="Email" class="label-form">Email</label>
+                <input type="text" id="Email" name="Email" class="form-control" value="@Model.Email" required />
+                @if (ViewData.ModelState["Email"]?.Errors.Any() == true)
+                {
+                    <div class="text-danger">
+                        @ViewData.ModelState["Email"]?.Errors[0]?.ErrorMessage
                     </div>
+                }
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mb-3">
+                <label for="Phone" class="label-form">Phone Number</label>
+                <input type="tel" id="Phone" name="Phone" class="form-control" value="@Model.Phone" required placeholder="(000) 000-0000" />
+                @if (ViewData.ModelState["Phone"]?.Errors.Any() == true)
+                {
+                    <div class="text-danger">
+                        @ViewData.ModelState["Phone"]?.Errors[0]?.ErrorMessage
+                    </div>
+                }
+            </div>
+
+            <!-- Message -->
+            <div class="mb-3">
+                <label for="UserMessage" class="label-form">Please give detail about your issue</label>
+                <textarea id="UserMessage" name="UserMessage" class="form-control auto-expand" rows="1" placeholder="Type here..." required style="resize: none; overflow: hidden;">@Model.UserMessage</textarea>
+                @if (ViewData.ModelState["UserMessage"]?.Errors.Any() == true)
+                {
+                    <div class="text-danger">
+                        @ViewData.ModelState["UserMessage"]?.Errors[0]?.ErrorMessage
+                    </div>
+                }
+            </div>
+
+            <!-- Were you a passenger in the taxi? -->
+            <div class="mb-3">
+                <label class="label-form">Were you a passenger in the taxi?</label>
+                <div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="WasPassenger" id="Option1" value="true" @if (Model.WasPassenger)
+                        {
+                            <text>checked</text>
+                        } required>
+                        <label class="form-check-label" for="Option1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="WasPassenger" id="Option2" value="false" @if (!Model.WasPassenger)
+                        {
+                            <text>checked</text>
+                        } required>
+                        <label class="form-check-label" for="Option2">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date and Time -->
+            <div class="mb-3">
+                <label for="RequestDate" class="label-form">Date</label>
+                <input type="datetime-local" id="RequestDate" name="RequestDate" class="form-control" value="@Model.RequestDate.ToString("yyyy-MM-ddTHH:mm")" required />
+                @if (ViewData.ModelState["RequestDate"]?.Errors.Any() == true)
+                {
+                    <div class="text-danger">
+                        @ViewData.ModelState["RequestDate"]?.Errors[0]?.ErrorMessage
+                    </div>
+                }
+            </div>
 
             <button type="submit" class="btn btn-primary">Send</button>
         </form>

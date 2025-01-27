@@ -24,7 +24,7 @@ namespace WEB.Controllers
                 if (existingUser != null)
                 {
                     TempData["Message"] = "A user with this email already exists.";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Privacy", "Home");
                 }
 
                 // Добавление пользователя в базу данных
@@ -42,15 +42,22 @@ namespace WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            // Проверяем, существует ли пользователь с таким email и паролем
+            var user = await _context.Users
+                                      .FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+
             if (user != null)
             {
+                // Пользователь найден, можно перенаправить на главную страницу
                 TempData["Message"] = $"Welcome back, {user.FName}!";
-                return RedirectToAction("Index"); // Переход на страницу Index.cshtml
+                return RedirectToAction("Index", "Home"); // Переход на главную страницу
             }
 
-            TempData["Message"] = "Invalid email or password.";
-            return RedirectToAction("Index");
+            // Если пользователь не найден, добавляем ошибку в ModelState
+            ModelState.AddModelError("", "Invalid email or password. Please try again.");
+
+            // Возвращаем пользователя на страницу логина с ошибкой
+            return View("~/Views/Home/Privacy.cshtml");
         }
 
         public IActionResult Index()

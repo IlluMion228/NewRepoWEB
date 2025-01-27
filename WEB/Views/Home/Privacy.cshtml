@@ -51,7 +51,7 @@
                         <h2 class="card-title">Login</h2>
                     </div>
                     <div class="card-body">
-                        <form asp-controller="RegisterLogin" asp-action="Index" method="post">
+                        <form asp-controller="RegisterLogin" asp-action="Login" method="post">
                             <div class="mb-3">
                                 <label for="loginEmail" class="form-label">Email</label>
                                 <input type="email" id="loginEmail" name="Email" class="form-control" required>
@@ -60,6 +60,15 @@
                                 <label for="loginPassword" class="form-label">Password</label>
                                 <input type="password" id="loginPassword" name="Password" class="form-control" required>
                             </div>
+
+                            <!-- Displaying login errors if any -->
+                            @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
+                            {
+                                <div class="alert alert-danger mt-3">
+                                    @ViewData["ErrorMessage"]
+                                </div>
+                            }
+
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
                     </div>
