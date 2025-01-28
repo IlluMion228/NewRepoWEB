@@ -23,7 +23,10 @@ namespace WEB.Controllers
             return View();
         }
 
-
+        public IActionResult GetHelpForm()
+        {
+            return View("~/Views/Help/GetHelpForm.cshtml");
+        }
 
         public IActionResult IndexBooking() 
         {

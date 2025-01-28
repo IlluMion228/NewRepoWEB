@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using WEB.Models;
 
-
 namespace WEB.Controllers
 {
     public class RegisterLoginController : Controller
@@ -31,6 +30,9 @@ namespace WEB.Controllers
                 _context.Users.Add(model);
                 await _context.SaveChangesAsync();
 
+                // Сохраняем User_ID в сессии после регистрации
+                HttpContext.Session.SetInt32("UserID", model.UserId);
+
                 TempData["Message"] = "Registration successful!";
                 return RedirectToAction("Index", "Home"); // Переход на страницу Index.cshtml
             }
@@ -48,6 +50,9 @@ namespace WEB.Controllers
 
             if (user != null)
             {
+                // Сохраняем User_ID в сессии
+                HttpContext.Session.SetInt32("UserID", user.UserId);
+
                 // Пользователь найден, можно перенаправить на главную страницу
                 TempData["Message"] = $"Welcome back, {user.FName}!";
                 return RedirectToAction("Index", "Home"); // Переход на главную страницу
@@ -60,14 +65,23 @@ namespace WEB.Controllers
             return View("~/Views/Home/Privacy.cshtml");
         }
 
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            // Очистка сессии при выходе пользователя
+            HttpContext.Session.Clear();
+            TempData["Message"] = "You have been logged out.";
+            return RedirectToAction("Privacy", "Home"); // Переход на страницу входа
+        }
+
         public IActionResult Index()
         {
             return View("~/Views/Home/Index.cshtml");
         }
+
         public IActionResult Privacy()
         {
             return View("~/Views/Home/Privacy.cshtml");
         }
-
     }
 }
