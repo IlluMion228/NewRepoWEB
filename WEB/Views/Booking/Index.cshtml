@@ -156,7 +156,6 @@
             const selectedExtras = Array.from(document.querySelectorAll("#extraFeaturesForm input[name='selectedExtras']:checked"))
                 .map(input => input.value);
 
-            // Создаем скрытое поле в основной форме для передачи данных
             let extrasField = document.getElementById("extrasField");
             if (!extrasField) {
                 extrasField = document.createElement("input");
@@ -169,7 +168,6 @@
             extrasField.value = selectedExtras.join(", ");
             alert("Extras saved: " + selectedExtras.join(", "));
 
-            // Закрываем модальное окно
             const modal = bootstrap.Modal.getInstance(document.getElementById("extraFeaturesModal"));
             modal.hide();
         });

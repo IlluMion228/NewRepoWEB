@@ -8,6 +8,13 @@
         <p class="subtitle">- 24/7 AVAILABLE -</p>
     </header>
 
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["Message"]
+        </div>
+    }
+
     <div class="menu-buttons">
         <a asp-controller="Booking" asp-action="Index" class="btn menu-btn">
             <i class="fa fa-calendar-alt"></i> Book a Taxi
@@ -25,17 +32,17 @@
         <p>State Transfers</p>
 
         <div class="social-icons">
-            <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-" class="icon"><i class="fab fa-youtube"></i></a>
-            <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-" class="icon"><i class="fab fa-twitter"></i></a>
-            <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-" class="icon"><i class="fab fa-linkedin"></i></a>
-            <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-" class="icon"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="icon"><i class="fab fa-facebook"></i></a>
         </div>
 
         <p class="footer-text">
             Plovdiv | Sofia | Pazardshik | Varna | Sun Beach | Pleven
         </p>
         <p class="footer-text">
-            <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-">Terms & Conditions</a> | <a href="https://youtu.be/dQw4w9WgXcQ?si=TXJ_neWIuuYlZTs-">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a>
         </p>
     </footer>
 </div>

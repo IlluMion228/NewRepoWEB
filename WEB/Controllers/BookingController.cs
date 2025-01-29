@@ -5,33 +5,60 @@ namespace WEB.Controllers
 {
     public class BookingController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public BookingController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.Extras = _context.Extras.ToList();
             return View(new Booking());
         }
 
         [HttpPost]
-        public IActionResult Index(Booking booking, string extraFeatures)
+        public async Task<IActionResult> Index(Booking booking, int[] selectedExtras)
         {
-            if (!string.IsNullOrEmpty(extraFeatures))
-            {
-                booking.ExtraFeatures = extraFeatures.Split(", ").ToList();
-            }
+            ViewBag.Extras = _context.Extras.ToList();
 
             if (ModelState.IsValid)
             {
-                // Расчет стоимости поездки
                 booking.Total = CalculateFare(booking.FarePrice);
 
-                // Применение скидки, если промокод корректен
                 if (!string.IsNullOrEmpty(booking.PromoCode) && IsValidPromoCode(booking.PromoCode))
                 {
-                    booking.Total *= 0.9m; // Скидка 10%
+                    booking.Total *= 0.9m; 
                 }
+
+                _context.Bookings.Add(booking);
+                await _context.SaveChangesAsync();
+
+                if (selectedExtras != null && selectedExtras.Length > 0)
+                {
+                    foreach (var extraId in selectedExtras)
+                    {
+                        var bookingExtra = new BookingExtra
+                        {
+                            BookingId = booking.BookingId,
+                            ExtraId = extraId
+                        };
+                        _context.BookingExtras.Add(bookingExtra);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+
+                booking.ExtraFeatures = _context.Extras
+                                                 .Where(e => _context.BookingExtras
+                                                                      .Any(be => be.BookingId == booking.BookingId && be.ExtraId == e.ExtraId))
+                                                 .Select(e => e.Name)
+                                                 .ToList();
 
                 return View("Confirmation", booking);
             }
+
             return View(booking);
         }
 
@@ -51,7 +78,7 @@ namespace WEB.Controllers
 
         private bool IsValidPromoCode(string promoCode)
         {
-            return promoCode == "DISCOUNT10"; 
+            return promoCode == "DISCOUNT10";
         }
     }
 }

@@ -1,14 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WEB.Models
 {
     public class Booking
     {
+        [Key]
+        public int BookingId { get; set; }
+
         [Required]
+        public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual UserModel User { get; set; }
+
+        [Required]
+        [StringLength(100)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
+        [StringLength(100)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
@@ -49,5 +61,6 @@ namespace WEB.Models
         public decimal Total { get; set; }
 
         public List<string> ExtraFeatures { get; set; } = new List<string>();
+        public virtual ICollection<BookingExtra> BookingExtras { get; set; }
     }
 }

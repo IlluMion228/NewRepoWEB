@@ -19,7 +19,7 @@
                     Promo Code: <strong>@Model.PromoCode</strong> (Applied Successfully)
                 </li>
             }
-            @if (Model.ExtraFeatures?.Count > 0)
+            @if (Model.ExtraFeatures != null && Model.ExtraFeatures.Count > 0)
             {
                 <li class="list-group-item">
                     Extra Features:
