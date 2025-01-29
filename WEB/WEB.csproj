@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20250127141853_IntitialCreate.cs" />
+    <Compile Remove="Migrations\20250127141853_IntitialCreate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\taxi.jpg" />
   </ItemGroup>
 
